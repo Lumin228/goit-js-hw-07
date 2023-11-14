@@ -29,6 +29,7 @@ createLi(galleryItems)
 ulList.addEventListener("click", handleClick);
 
 function handleClick(event) {
+    event.preventDefault()
     if (event.target === event.currentTarget) {
         return;
     }
@@ -42,4 +43,5 @@ function handleClick(event) {
 
     const instance = basicLightbox.create(`<img class="gallery__image" src="${currentPhoto.original}" alt="${currentPhoto.description}">`);
     instance.show();
+    
 }
