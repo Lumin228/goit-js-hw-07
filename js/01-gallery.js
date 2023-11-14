@@ -1,3 +1,4 @@
+
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
@@ -17,12 +18,28 @@ function createLi(galleryItems) {
         img.classList.add('gallery__image');
         ahr.classList.add('gallery__link');
         li.classList.add('gallery__item');
-       
-        li.appendChild(img); 
-        li.append(ahr);
-        ulList.appendChild(li);  
+        li.appendChild(ahr);
+        ahr.appendChild(img); 
+        ulList.appendChild(li);
+
     }
 }
 createLi(galleryItems)
-const liCheck = document.querySelector('.gallery__item');
-console.log(liCheck)
+
+ulList.addEventListener("click", handleClick);
+
+function handleClick(event) {
+    if (event.target === event.currentTarget) {
+        return;
+    }
+    
+    const currentItem = event.target.closest(".gallery__item");
+    const currentPhoto = galleryItems.find(item => item.original === currentItem.querySelector(".gallery__link").href);
+
+    if (!currentPhoto) {
+        return;
+    }
+
+    const instance = basicLightbox.create(`<img class="gallery__image" src="${currentPhoto.original}" alt="${currentPhoto.description}">`);
+    instance.show();
+}
